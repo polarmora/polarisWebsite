@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace polarisWebsite.Controllers
+namespace polarisWebsite.WebUI.Controllers
 {
     public class HomeController : Controller
     {

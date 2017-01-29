@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Ninject;
 
-namespace polarisWebsite.Infrastructure
+namespace polarisWebsite.WebUI.Infrastructure
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {

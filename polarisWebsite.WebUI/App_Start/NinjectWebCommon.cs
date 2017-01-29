@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(polarisWebsite.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(polarisWebsite.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(polarisWebsite.WebUI.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(polarisWebsite.WebUI.App_Start.NinjectWebCommon), "Stop")]
 
-namespace polarisWebsite.App_Start
+namespace polarisWebsite.WebUI.App_Start
 {
     using System;
     using System.Web;
@@ -62,7 +62,7 @@ namespace polarisWebsite.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             System.Web.Mvc.DependencyResolver.SetResolver(
-                new polarisWebsite.Infrastructure.NinjectDependencyResolver(kernel));
+                new polarisWebsite.WebUI.Infrastructure.NinjectDependencyResolver(kernel));
         }        
     }
 }
