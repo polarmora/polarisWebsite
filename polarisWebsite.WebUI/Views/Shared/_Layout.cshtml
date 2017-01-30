@@ -6,12 +6,13 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet"/>
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
 </head>
 
-<body style="background-color: #333" >
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -26,10 +27,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="/Home/Index">Home</a></li>
                     <li><a href="#about">Research</a></li>
                     <li><a href="#blog">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/Home/Contact">Contact</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Links <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -49,6 +50,12 @@
     </nav>
 
     @RenderBody()
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">You can find this website's source code in <a href="https://github.com/rising-fallmoon/polarisWebsite">Github</a>.</p>
+        </div>
+    </footer>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
