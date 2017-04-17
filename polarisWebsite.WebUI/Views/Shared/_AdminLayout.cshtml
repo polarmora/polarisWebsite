@@ -1,17 +1,18 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
-
 <body class="container">
+    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -34,10 +35,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Links <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Action</a></li>
-                            
+
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>                          
+                            <li><a href="#">Separated link</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -47,16 +48,39 @@
             </div>
         </div>
     </nav>
-
+    <div>
+        @if (TempData["message_attr"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["message_attr"]
+            </div>
+        }
+        @if (TempData["message_file"] != null)
+        {
+            <div class="alert alert-success alert-dismissable" role="alert">
+                @TempData["message_file"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+        }
+        @if (TempData["message_images"] != null)
+        {
+            <div class="alert alert-success alert-dismissable" role="alert">
+                @TempData["message_images"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+        }
+    </div>
     @RenderBody()
-
     <footer class="footer">
         <div class="container">
             <p class="text-muted">You can find the source code of this website on <a href="https://github.com/rising-fallmoon/polarisWebsite">Github</a>.</p>
         </div>
     </footer>
-
     <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
+
 </body>
 </html>

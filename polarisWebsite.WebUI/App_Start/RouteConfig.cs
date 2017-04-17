@@ -14,10 +14,17 @@ namespace polarisWebsite.WebUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AdminIndex",
+                url: "Admin/{action}",
+                defaults: new { controller = "Admin", action = "ArticleIndex" }
+                );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            
         }
     }
 }

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Ninject;
+using polarisWebsite.WebUI.Infrastructure.Abstract;
+using polarisWebsite.WebUI.Infrastructure.Concrete;
+using polarisWebsite.Domain.Abstract;
+using polarisWebsite.Domain.Concrete;
+using polarisWebsite.Domain.Entities;
 
 namespace polarisWebsite.WebUI.Infrastructure
 {
@@ -25,6 +30,8 @@ namespace polarisWebsite.WebUI.Infrastructure
         private void AddBindings()
         {
             // put bindings here
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
+            kernel.Bind<IArticleRepository>().To<EFArticleRepository>();
         }
     }
 }

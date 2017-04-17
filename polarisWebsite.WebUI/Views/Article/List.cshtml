@@ -1,0 +1,44 @@
+﻿@using polarisWebsite.Domain.Entities
+@model IEnumerable<Article>
+
+@{
+    ViewBag.Title = "Articles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="fullpage">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>All Blogs</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-condensed table-bordered">
+                <tr>
+                    
+                    <th class="text-right">Title</th>
+                    <th class="text-right">Author</th>
+                    <th class="text-right">Created time</th>
+                    <th class="text-right">Last revised time</th>
+
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        
+                        <td class="text-right">
+                            @Html.ActionLink(item.Title, "Show",
+                       new
+                       {
+                           item.ArticleID
+                       })
+                        </td>
+                        <td class="text-right">@item.Author</td>
+                        <td class="text-right">@item.CreatedTime.ToString()</td>
+                        <td class="text-right">@item.RevisedTime.ToString()</td>
+                        
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

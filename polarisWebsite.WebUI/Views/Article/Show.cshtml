@@ -1,0 +1,66 @@
+﻿@model polarisWebsite.WebUI.Models.ArticleViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/blog.css" rel="stylesheet">
+<script src="~/Scripts/showdown.js"></script>
+
+<div class="container">
+    <div class="row">
+        <div id="blogContent" class="col-md-9"
+             data-spy="scroll" data-target="#Content" data-offset="0"
+             style="overflow-y:auto; height:480px">
+            <div id="blog" class="container-fluid"> </div>
+        </div>
+        <div id="SideBar" class="col-md-3">
+            <div style="position:fixed">
+                <h2>Content</h2>
+                <nav id="Content">
+                    <ul id="sidebarContent"
+                        class="nav nav-pills nav-stacked"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var converter = new showdown.Converter();
+        converter.setOption('simpleLineBreaks', true);
+        document.getElementById("blog").innerHTML = converter.makeHtml("@Model.Content.Trim('\"')");
+        
+    </script>
+    <script>
+        var doc = document.getElementById("blog").innerHTML.toString();
+        //alert(doc);
+        var pattern = new RegExp("<h[1-6] id=\"(.+)\">(.*)</h[1-6]>", "g");//("<h[1-6] id=\".+\">.*</h>", "g");
+        var content = "";
+        var result;
+        var bFirstTag = true;
+        while((result = pattern.exec(doc)) != null)
+        {
+            // alert(result[0] + "+" + result[1]);
+            if(bFirstTag)
+            {
+                content += "<li" + " class=\"active\"";
+                bFirstTag = false;
+            }
+            else
+            {
+                content += "<li";
+            }
+            content += "><a href=\"#" + result[1] + "\">" + result[2] + "</a></li>";
+        }
+        //content += "</ul>";
+        document.getElementById("sidebarContent").innerHTML = content;
+        
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ["\(","\)"]]}
+        });
+    </script>
+</div>
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>

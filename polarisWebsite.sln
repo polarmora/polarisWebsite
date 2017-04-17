@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polarisWebsite.Domain", "polarisWebsite.Domain\polarisWebsite.Domain.csproj", "{BE2172CE-98B9-4414-90D5-7F184A972E72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polarisWebsite.WebUI", "polarisWebsite.WebUI\polarisWebsite.WebUI.csproj", "{F648FD1A-CDD5-4937-81A2-797B1BAC1C51}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE2172CE-98B9-4414-90D5-7F184A972E72} = {BE2172CE-98B9-4414-90D5-7F184A972E72}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

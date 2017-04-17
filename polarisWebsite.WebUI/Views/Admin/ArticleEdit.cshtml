@@ -1,0 +1,124 @@
+﻿@model polarisWebsite.Domain.Entities.Article
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    //HtmlHelper.ClientValidationEnabled = false;
+    //HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+}
+<script>
+    function ShowImagesNames(images, infoArea) {
+        //get the input and UL list
+        var input = document.getElementById(images);
+        var list = document.getElementById(infoArea);
+
+        //empty list for now...
+        while (list.hasChildNodes()) {
+            list.removeChild(ul.firstChild);
+        }
+
+        //for every file...
+        for (var x = 0; x < input.files.length; x++) {
+            //add to list
+            var li = document.createElement('li');
+            li.innerHTML = 'Image ' + (x + 1) + ':  ' + input.files[x].name;
+            list.append(li);
+        }
+    }
+</script>
+<div class="fullpage">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="col-md-offset-2">
+                @if (Model.ArticleID != 0)
+            {
+                    <h3>Edit: @Model.Title</h3>
+            }
+            else
+            {
+                    <h3>Create</h3>
+            }
+
+            </div>
+        </div>
+
+        @using (Html.BeginForm("ArticleEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div class="panel-body">
+                @if (Model.ArticleID != 0)
+                {
+                    <div class="col-md-offset-2">
+                        <span style="font-size:14px" class="label label-success">Article ID: @Model.ArticleID</span>
+                        <span style="font-size:14px" class="label label-success">Created time: @Model.CreatedTime.ToString()</span>
+                        <span style="font-size:14px" class="label label-success">Revised time: @Model.RevisedTime.ToString()</span>
+                        <br /><br />
+                    </div>
+                }
+
+                @Html.HiddenFor(m => m.ArticleID)
+                @Html.HiddenFor(m => m.CreatedTime)
+                @Html.HiddenFor(m => m.RevisedTime)
+                @foreach (var property in ViewData.ModelMetadata.Properties)
+                {
+                    switch (property.PropertyName)
+                    {
+                        case "ArticleID":
+                        case "CreatedTime":
+                        case "RevisedTime":
+                            break;
+                        default:
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    @(property.DisplayName ?? property.PropertyName)
+                                </label>
+                                <div class="col-md-10">
+                                    @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                                    @Html.ValidationMessage(property.PropertyName)
+                                </div>
+                            </div>
+                            break;
+                    }
+                }
+                <div class="form-group">
+                    <label class="col-md-2 control-label">File</label>
+                    <div class="col-md-10">
+                        <a class='btn' href='javascript:;'>
+                            Choose File...
+                            <input type="file" name="File" size="40"
+                                   style="position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0); opacity:0;backgroundcolor:transparent;color:transparent;"
+                                   onchange='$("#upload-file-info").html($(this).val());'>
+                        </a>
+                        <span class='bage' id="upload-file-info"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Images</label>
+                    <div class="col-md-10">
+                        <a class='btn' href='javascript:;'>
+                            Choose Images...
+                            <input type="file" name="Images" id="Images" multiple="multiple" size="40"
+                                   style="position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0); opacity:0;backgroundcolor:transparent;color:transparent;"
+                                   onchange="ShowImagesNames('Images','upload-images-info')">
+                        </a>
+                        <span id="upload-images-info"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="col-md-offset-2">
+                    <button type="submit" class="btn btn-default">Save</button>
+                    @Html.ActionLink("Cancel and return to List", "ArticleIndex", null,
+           new
+           {
+               @class = "btn btn-default"
+           })
+
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@{
+    ViewBag.Title = "Edit";
+    //这里的ViewBag.Title会覆盖Model中的Title属性，只好写到最后。这样可以在覆盖之前先把Model中的Title显示出来。
+}
