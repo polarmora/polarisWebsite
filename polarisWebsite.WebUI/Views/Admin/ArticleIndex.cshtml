@@ -33,8 +33,8 @@
                        })
                         </td>
                         <td class="text-right">@item.Author</td>
-                        <td class="text-right">@item.CreatedTime.ToString()</td>
-                        <td class="text-right">@item.RevisedTime.ToString()</td>
+                        <td class="text-right">@TimeZoneInfo.ConvertTime(item.CreatedTime, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById("China Standard Time")).ToString()</td>
+                        <td class="text-right">@TimeZoneInfo.ConvertTime(item.RevisedTime, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById("China Standard Time")).ToString()</td>
                         <td class="text-right">@item.FileType</td>
                         <td class="text-center">
                             @using (Html.BeginForm("Delete", "Admin"))

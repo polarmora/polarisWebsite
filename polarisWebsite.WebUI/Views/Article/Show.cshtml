@@ -15,7 +15,7 @@
         </div>
         <div id="SideBar" class="col-md-3">
             <div style="position:fixed">
-                <h2>Content</h2>
+                <h2>@Model.Title</h2>
                 <nav id="Content">
                     <ul id="sidebarContent"
                         class="nav nav-pills nav-stacked"></ul>
@@ -33,25 +33,35 @@
     <script>
         var doc = document.getElementById("blog").innerHTML.toString();
         //alert(doc);
-        var pattern = new RegExp("<h[1-6] id=\"(.+)\">(.*)</h[1-6]>", "g");//("<h[1-6] id=\".+\">.*</h>", "g");
+        var pattern = new RegExp("<h([1-6]) id=\"(.+)\">(.*)</h[1-6]>", "g");
         var content = "";
         var result;
-        var bFirstTag = true;
+        var lastDepth = 0;
         while((result = pattern.exec(doc)) != null)
         {
-            // alert(result[0] + "+" + result[1]);
-            if(bFirstTag)
+            var depth = parseInt(result[1]);
+            if (depth > lastDepth)
             {
-                content += "<li" + " class=\"active\"";
-                bFirstTag = false;
+                for (var i = 0; i < depth - lastDepth; i++)
+                {
+                    content += "<ul  class=\"nav nav-pills nav-stacked\">";
+                }
             }
             else
             {
-                content += "<li";
+                for (var i = 0; i < lastDepth - depth + 1; i++)
+                {
+                    content += "</ul>";
+                }
+                content += "<ul class=\"nav nav-pills nav-stacked\">";
             }
-            content += "><a href=\"#" + result[1] + "\">" + result[2] + "</a></li>";
+            var spaceEntity = "";
+            for (var i = 0; i < depth - 1; i++) spaceEntity += "&emsp;&emsp;";
+            content += "<li><a href=\"#" + result[2] + "\">" + spaceEntity + result[3] + "</a></li>";
+            lastDepth = depth;
         }
-        //content += "</ul>";
+        for (var i = 0; i < lastDepth; i++) content += "</ul>";
+
         document.getElementById("sidebarContent").innerHTML = content;
         
     </script>
